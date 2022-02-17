@@ -1,0 +1,34 @@
+.dark {
+  --primary_color: #535152;
+  --header_color: #262626;
+  --text_color:white;
+  --menu:#424242;
+  --menu_item_color:#262626;
+  --workspace_color:#535152;
+  --pane_color:#262626;
+  --border_color_hover: #920909;
+  --border_color:#424242;
+  --text_input:#424242;
+  --text_input_focus:#424242;
+  --tab_color:#424242;
+  --tab_active_color:#262626;
+  --button:#424242;
+  --odd:rgb(51, 48, 48);
+}
+.light{
+  --primary_color: grey;
+  --header_color: rgba(55,65,81, 1);
+  --text_color:white;
+  --menu:rgba(75, 85, 99, 1);
+  --menu_item_color: rgba(55,65,81, 1);
+  --workspace_color:rgba(107,114,128, 1);
+  --pane_color: rgba(55,65,81, 1);
+  --border_color_hover: #920909;
+  --border_color: rgba(107,114,128, 1);
+  --text_input:#586373;
+  --text_input_focus:rgba(75,85,99, 1);
+  --tab_color:rgba(75,85,99, 1);
+  --tab_active_color:rgba(55,65,81, 1);
+  --button:rgba(75, 85, 99, 1);
+  --odd:rgb(107, 114, 128);
+}

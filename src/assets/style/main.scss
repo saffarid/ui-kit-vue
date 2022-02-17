@@ -1,0 +1,19 @@
+@import "variable";
+@import "border_pane";
+@import "card";
+
+body{
+  margin: 0;
+}
+
+#app{
+  font-family: Arial;
+  text-align: center;
+  height: 100vh;
+  max-height: 100vh;
+}
+
+.mainContainer{
+  min-height: 100%;
+  background-color: var(--primary_color);
+}
