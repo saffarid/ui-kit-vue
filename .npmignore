@@ -1,12 +1,13 @@
 # Игнорировать каталог
-public/
-src/assets/
-src/main.js
-src/components/ShowAllComponents.Vue
-src/App.vue
 .idea/
 node_modules/
+public/
+src/assets/style
+src/components/notpublish
  # Игнорировать указанный файл
+src/App.vue
+src/build-entry.js
+src/main.js
 vue.config.js
 babel.config.js
 *.map

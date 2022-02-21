@@ -1,10 +1,12 @@
 {
   "name": "elemy-ui-kit",
+  "description": "elemy-ui-kit",
   "version": "0.1.0",
+  "main": "src/index.js",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "node src/build-entry.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -13,7 +15,8 @@
     "nouislider": "^14.6.3",
     "sass-loader": "^10.2.1",
     "vue": "^3.0.0",
-    "wnumb": "^1.2.0"
+    "wnumb": "^1.2.0",
+    "json-templater": "^1.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

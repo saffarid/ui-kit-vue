@@ -2,7 +2,7 @@
 
 ## Project setup
 ```
-npm install
+npm i elemy-ui-kit
 ```
 
 ### Compiles and hot-reloads for development
