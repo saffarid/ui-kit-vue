@@ -60,7 +60,7 @@
 </template>
 
 <script>
-    import {checkRange, map, toRad} from "@/assets/math"
+    import {checkRange, map, toRad} from "../../assets/math"
 
     import Alarm from './images/Alarm'
     import Warning from './images/Warning'

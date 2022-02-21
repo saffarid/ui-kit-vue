@@ -50,7 +50,7 @@
 </template>
 
 <script>
-    import { checkRange, map, toRad } from '/src/assets/math'
+    import { checkRange, map, toRad } from '../../assets/math'
 
     import FlagsStates from "./mixins/FlagsStates";
     import Limited from "./mixins/Limited";

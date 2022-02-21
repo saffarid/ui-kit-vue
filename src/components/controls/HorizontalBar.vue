@@ -12,7 +12,7 @@
 </template>
 
 <script>
-   import { map } from '@/assets/math'
+   import { map } from '../../assets/math'
 
    import Value from "./mixins/Value";
    import Limited from "./mixins/Limited";
