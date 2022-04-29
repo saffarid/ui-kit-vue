@@ -28,7 +28,7 @@
     import {reactive} from "vue";
     import NavigationMenu from "@/components/controls/NavigationMenu";
 
-    import BorderPane from "@/components/layout/BorderPane";
+    import BorderPane from "../layout/BorderPane";
 
     import Layouts from "@/components/notpublish/Layouts";
     import Controls from "@/components/notpublish/controls/Controls";

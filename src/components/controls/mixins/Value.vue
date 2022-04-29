@@ -10,7 +10,7 @@
              * Текущее значение некоторой величины.
              * @values String, Number, Boolean
              * */
-            currentValue: {
+            modelValue: {
                 type: [String, Number, Boolean],
                 required: true,
                 validator(val) {

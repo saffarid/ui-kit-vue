@@ -25,7 +25,7 @@
 
 <style lang="scss" scoped>
 
-    .card{
+        .card{
 
         .title{
             justify-self: stretch;

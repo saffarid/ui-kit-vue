@@ -133,7 +133,7 @@
             // то получим что сама переменная (например format) будет undefined
             //const {modelValue, format, type, step, min, max} = toRefs(props)
             // а если писать так, то format будет существовать, а format.value будет undefined, что гораздо удобнее!!!
-            const modelValue = ref(props.currentValue)
+            const modelValue = ref(props.modelValue)
             const format = ref(props.format)
             const type = ref(props.type)
             const step = ref(props.step)

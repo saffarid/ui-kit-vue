@@ -2,7 +2,7 @@
 
 ## Project setup
 ```
-npm i elemy-ui-kit
+npm i saffarid-ui-kit
 ```
 
 ### Compiles and hot-reloads for development

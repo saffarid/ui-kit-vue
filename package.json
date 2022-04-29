@@ -1,7 +1,7 @@
 {
-  "name": "elemy-ui-kit",
-  "description": "elemy-ui-kit",
-  "version": "0.1.2",
+  "name": "saffarid-ui-kit",
+  "description": "saffarid-ui-kit",
+  "version": "0.1.8",
   "main": "src/index.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,22 +9,23 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "json-templater": "^1.2.0",
+    "core-js": "3.6.5",
+    "nouislider": "14.6.3",
+    "vue": "3.2.2",
     "node-sass": "6.0.0",
-    "nouislider": "^14.6.3",
-    "sass-loader": "^10.2.1",
-    "vue": "^3.0.0",
-    "wnumb": "^1.2.0"
+    "sass-loader": "10.2.1",
+    "wnumb": "1.2.0",
+    "@vue/compiler-sfc": "3.0.0",
+    "vue-loader": "17.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "@vue/cli-plugin-babel": "4.5.0",
+    "@vue/cli-plugin-eslint": "4.5.0",
+    "@vue/cli-service": "4.5.0",
+    "babel-eslint": "10.1.0",
+    "eslint": "6.7.2",
+    "eslint-plugin-vue": "6.2.2",
+    "vue-template-compiler": "2.6.11"
   },
   "eslintConfig": {
     "root": true,
