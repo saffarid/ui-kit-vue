@@ -1,5 +1,5 @@
 <template>
-    <div class="row" :class="containerStyle" ref="rows" :style="varSize">
+    <div class="row" :class="containerStyle" ref="row" :style="varSize">
         <slot></slot>
         <div class="optional">
             <slot name="optional">
@@ -12,6 +12,14 @@
 <script>
     import calcSize from "./calcSize";
 
+    import {
+        ref,
+        reactive,
+        // computed,
+        watch,
+        onMounted
+    } from 'vue'
+
     /**
      * Компонент-строка, адаптирует положение
      * активного элемента таким образом,
@@ -19,47 +27,50 @@
      * */
     export default {
         name: 'Row',
-        data() {
-            return {
+        setup() {
+            const varSize = calcSize()
+            const row = ref(null)
+
+            const containerStyle = ref('')
+
+            const widths = reactive({
                 minWidthCol: 200,
                 maxWidthCol1: 400,
                 maxWidthCol2: 400,
-                /**
-                 * Ширина компонента
-                 * */
-                width: 0
-            }
-        },
-        computed: {
-            containerStyle: function () {
-                let rubicon = (this.maxWidthCol1 + this.maxWidthCol2 + 5) * 1.0
-                console.log(this.width)
-                if (this.width > rubicon) {
-                    return {
-                        'row-1': true,
-                        'row-2': false,
-                    }
+            })
+
+            const calcStyle = () => {
+                const r = (widths.maxWidthCol1 + widths.maxWidthCol2 + 5)*1.0
+                console.log('r' + r)
+                console.log('clientWidth' + row.value.clientWidth)
+                if(row.value.clientWidth > r){
+                    console.log('row-1')
+                    containerStyle.value = 'row-1'
                 } else {
-                    return {
-                        'row-1': false,
-                        'row-2': true,
-                    }
+                    console.log('row-2')
+                    containerStyle.value = 'row-2'
                 }
             }
-        },
-        mounted() {
 
-            this.maxWidthCol1 = parseFloat(this.varSize["--maxWidthCol1"].replace('px', ''))
-            this.maxWidthCol2 = parseFloat(this.varSize["--maxWidthCol2"].replace('px', ''))
-            this.minWidthCol = parseFloat(this.varSize["--minWidthCol"].replace('px', ''))
-            this.width = this.$refs.rows.clientWidth
-            window.addEventListener('resize', () => {
-                this.width = this.$refs.rows.clientWidth
+            watch(row, () => {
+                console.log('Навешиваем слушателя')
+                window.onresize = () => {
+                    console.log('Изменение размеров')
+                    calcStyle()
+                }
             })
-        },
-        setup() {
-            const varSize = calcSize()
+
+
+            onMounted(() => {
+                widths.maxWidthCol1 = parseFloat(varSize["--maxWidthCol1"].replace('px', ''))
+                widths.maxWidthCol2 = parseFloat(varSize["--maxWidthCol2"].replace('px', ''))
+                widths.minWidthCol = parseFloat(varSize["--minWidthCol"].replace('px', ''))
+                calcStyle()
+            })
+
             return {
+                containerStyle,
+                row,
                 varSize
             }
         }

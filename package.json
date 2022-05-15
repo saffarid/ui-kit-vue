@@ -1,7 +1,7 @@
 {
   "name": "saffarid-ui-kit",
   "description": "saffarid-ui-kit",
-  "version": "0.1.8",
+  "version": "0.1.12",
   "main": "src/index.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -11,10 +11,10 @@
   "dependencies": {
     "core-js": "3.6.5",
     "nouislider": "14.6.3",
+    "wnumb": "1.2.0",
     "vue": "3.2.2",
     "node-sass": "6.0.0",
     "sass-loader": "10.2.1",
-    "wnumb": "1.2.0",
     "@vue/compiler-sfc": "3.0.0",
     "vue-loader": "17.0.0"
   },

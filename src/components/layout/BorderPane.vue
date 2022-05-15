@@ -58,7 +58,6 @@
 
         .center{
             grid-area: center;
-            overflow-y: auto;
         }
 
         .right{
