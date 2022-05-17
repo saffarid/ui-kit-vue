@@ -1,7 +1,8 @@
 <template>
-   <button class="button" @click="$emit('click')">
+   <div
+           class="button" @click="click">
       <slot>{{text}}</slot>
-   </button>
+   </div>
 </template>
 
 <script>
@@ -9,8 +10,24 @@
       name: 'Button',
       props: {
          text: String,
+         disabled:{
+            type: Boolean,
+            required: false,
+            default: false
+         }
       },
       emits: ['click'],
+      setup(props, context){
+         const click = () => {
+            if (!props.disabled) {
+               context.emit('click')
+            }
+         }
+
+         return {
+            click
+         }
+      }
    }
 </script>
 
@@ -20,7 +37,5 @@
       display: grid;
       align-content: center;
       justify-content: center;
-      /*min-height: 20px;*/
-      /*max-height: 40px;*/
    }
 </style>

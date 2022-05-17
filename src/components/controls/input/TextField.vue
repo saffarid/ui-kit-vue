@@ -1,5 +1,6 @@
 <template>
     <input
+            ref="input"
             :type="type"
             :value="inputValue"
             :step="step"
