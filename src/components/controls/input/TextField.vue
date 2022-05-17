@@ -1,7 +1,5 @@
 <template>
     <input
-            class="u-text py-2 px-2 outline-none rounded border-1 border-main bg-gray text-white wr-200"
-            ref="input"
             :type="type"
             :value="inputValue"
             :step="step"
@@ -251,27 +249,3 @@
         },
     }
 </script>
-
-<style scoped>
-    .error-blink {
-        animation-name: error-blink;
-        animation-timing-function: linear;
-        animation-duration: 2s;
-        animation-iteration-count: infinite;
-    }
-
-    @keyframes error-blink {
-        0% {
-            /*background-color: rgb(179, 92, 104);*/
-            box-shadow: 0 0 5px 5px rgb(179, 92, 104);
-        }
-        50% {
-            /*background-color: red;*/
-            box-shadow: 0 0 5px 5px darkred;
-        }
-        100% {
-            /*background-color: rgb(179, 92, 104);*/
-            box-shadow: 0 0 5px 5px rgb(179, 92, 104);
-        }
-    }
-</style>

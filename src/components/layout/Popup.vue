@@ -19,14 +19,6 @@
    export default {
       name: 'Popup',
       emits: ['close'],
-      /*mounted() {
-                  let vm = this;
-                  document.addEventListener('click', function (item) {
-                      if (item.target === vm.$refs['popupWrapper']) {
-                          vm.close();
-                      }
-                  })
-              }*/
    }
 </script>
 
