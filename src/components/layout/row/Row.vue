@@ -1,7 +1,7 @@
 <template>
     <div class="row" :class="containerStyle" ref="row" :style="varSize">
         <slot></slot>
-        <div class="optional">
+        <div class="optional" ref="optional">
             <slot name="optional">
                 <div></div>
             </slot>
@@ -10,14 +10,14 @@
 </template>
 
 <script>
-    import calcSize from "./calcSize";
+    import calcSize from './calcSize'
 
     import {
         ref,
-        reactive,
-        // computed,
         watch,
-        onMounted
+        reactive,
+        onMounted,
+        onBeforeUpdate,
     } from 'vue'
 
     /**
@@ -28,52 +28,70 @@
     export default {
         name: 'Row',
         setup() {
-            const varSize = calcSize()
             const row = ref(null)
+            const optional = ref(null)
+            const varSize = calcSize()
+            const containerStyle = reactive({
+                'row-1': true,
+                'row-2': false,
+            })
 
-            const containerStyle = ref('')
+            const pastWidths = reactive({
+                row: 0,
+                first: 0,
+                second: 0,
+            })
 
-            const widths = reactive({
+            const widths = {
                 minWidthCol: 200,
                 maxWidthCol1: 400,
                 maxWidthCol2: 400,
-            })
+            }
 
-            const calcStyle = () => {
-                const r = (widths.maxWidthCol1 + widths.maxWidthCol2 + 5)*1.0
-                console.log('r' + r)
-                console.log('clientWidth' + row.value.clientWidth)
-                if(row.value.clientWidth > r){
-                    console.log('row-1')
-                    containerStyle.value = 'row-1'
-                } else {
-                    console.log('row-2')
-                    containerStyle.value = 'row-2'
+            const setPastWidths = () => {
+                pastWidths.row = (row.value.clientWidth !== 0) ? (row.value.clientWidth) : (pastWidths.row)
+                pastWidths.first = (row.value.childNodes[1].clientWidth !== 0) ? (row.value.childNodes[1].clientWidth) : (pastWidths.first)
+                pastWidths.second = (row.value.childNodes[2].clientWidth !== 0) ? (row.value.childNodes[2].clientWidth) : (pastWidths.second)
+            }
+
+            const containerStyleCalc = () => {
+                const rubicon = (widths.maxWidthCol1 + widths.maxWidthCol2 + 5) * 1.0
+                setPastWidths()
+                const optionalW = pastWidths.row - pastWidths.first - pastWidths.second
+                if(pastWidths.row === 0) return
+                if (optionalW > rubicon) {
+                    containerStyle['row-1'] = true
+                    containerStyle['row-2'] = false
+                }
+                else {
+                    containerStyle['row-1'] = false
+                    containerStyle['row-2'] = true
                 }
             }
 
-            watch(row, () => {
-                console.log('Навешиваем слушателя')
-                window.onresize = () => {
-                    console.log('Изменение размеров')
-                    calcStyle()
-                }
+            onMounted(() => {
+                widths.maxWidthCol1 = parseFloat(varSize['--maxWidthCol1'].replace('px', ''))
+                widths.maxWidthCol2 = parseFloat(varSize['--maxWidthCol2'].replace('px', ''))
+                widths.minWidthCol = parseFloat(varSize['--minWidthCol'].replace('px', ''))
+                containerStyleCalc()
             })
 
+            onBeforeUpdate(() => {
+                containerStyleCalc()
+            })
 
-            onMounted(() => {
-                widths.maxWidthCol1 = parseFloat(varSize["--maxWidthCol1"].replace('px', ''))
-                widths.maxWidthCol2 = parseFloat(varSize["--maxWidthCol2"].replace('px', ''))
-                widths.minWidthCol = parseFloat(varSize["--minWidthCol"].replace('px', ''))
-                calcStyle()
+            watch(row, () => {
+                containerStyleCalc()
+                window.addEventListener('resize', containerStyleCalc)
             })
 
             return {
                 containerStyle,
+                optional,
+                varSize,
                 row,
-                varSize
             }
-        }
+        },
     }
 </script>
 
