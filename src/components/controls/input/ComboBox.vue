@@ -2,7 +2,7 @@
     <select
             class="combo-box"
             :disabled="disabled"
-            :value="currentValue"
+            :value="modelValue"
             @change="$emit('update:modelValue', $event.target.value)">
         <option v-for="(opt, index) in options" :key="index" :value="index">
             <slot name="option" :index="index" :option="opt">{{opt}}</slot>
@@ -38,7 +38,7 @@
         computed: {
             changeBlink: function () {
                 if (this.prevValue === undefined) return false
-                return this.prevValue != this.currentValue
+                return this.prevValue != this.modelValue
             },
         },
         // setup(props, {emit}) {
