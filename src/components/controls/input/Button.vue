@@ -1,5 +1,6 @@
 <template>
    <div
+           :disabled="disabled"
            class="button" @click="click">
       <slot>{{text}}</slot>
    </div>
