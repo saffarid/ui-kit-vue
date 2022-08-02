@@ -4,15 +4,17 @@
             :disabled="disabled"
             :value="modelValue"
             @change="$emit('update:modelValue', $event.target.value)">
-        <option v-for="(opt, index) in options" :key="index" :value="index">
-            <slot name="option" :index="index" :option="opt">{{opt}}</slot>
-        </option>
+        <option v-for="(opt, index) in options"
+                :key="index"
+                :value="opt.value"
+                :disabled="opt.disabled"
+                :label="opt.label"
+                :selected="opt.selected"
+        />
     </select>
 </template>
 
 <script>
-    //import {ref} from "vue";
-
     import Value from "../mixins/Value";
 
     export default {
@@ -21,37 +23,28 @@
             Value
         ],
         props: {
-            prevValue: {
-                type: [String, Number],
-                required: false,
-            },
+            /**
+             * Массив пунктов списка.
+             * Компонент ожидает увидеть в массиве объекты
+             * {
+             *     disabled: boolean - блокировка доступа к элементу списка
+             *     label: string - метка пункта списка
+             *     selected: boolean - заранее устанавливает определённый пункс списка выделенным
+             *     value: string - значение пункта списка, которое будет отправлено на сервер или прочитано с помощью скриптов
+             * }
+             * */
             options: {
-                type: Object,
+                type: Array,
                 required: true,
             },
+            /**
+             * Блокировка доступа к элементу
+             * */
             disabled: {
                 type: Boolean,
                 required: false,
             },
         },
         emits: ['update:modelValue'],
-        computed: {
-            changeBlink: function () {
-                if (this.prevValue === undefined) return false
-                return this.prevValue != this.modelValue
-            },
-        },
-        // setup(props, {emit}) {
-        //   const value = ref(props.modelValue)
-
-        //   function update(event) {
-        //     emit('update', value)
-        //   }
-
-        //   return {
-        //     value,
-        //     update,
-        //   }
-        // }
     }
 </script>
