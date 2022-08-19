@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="title_pane">
         <div class="title">{{ title }}</div>
         <div class="content">
             <slot/>
@@ -9,7 +9,7 @@
 
 <script>
     export default {
-        name: 'Card',
+        name: 'TitlePane',
         props: {
             /**
              * Заголовок слоя.
@@ -25,17 +25,17 @@
 
 <style lang="scss" scoped>
 
-        .card{
+    .title_pane{
+
+        display: grid;
+        grid-template-rows: min-content auto;
 
         .title{
             justify-self: stretch;
             text-align: start;
-            padding: 10px;
-            /*padding-left: 10px;*/
         }
 
         .content{
-            padding: 5px;
             align-content: stretch;
             justify-content: stretch;
         }
