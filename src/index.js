@@ -1,19 +1,10 @@
 
-import ArrowView from './components/controls/ArrowView'
-import CircleBar from './components/controls/CircleBar'
-import HorizontalBar from './components/controls/HorizontalBar'
-import LoadingCom from './components/controls/LoadingCom'
+import Loading from './components/controls/Loading'
 import NavigationMenu from './components/controls/NavigationMenu'
-import PageLoading from './components/controls/PageLoading'
 import TableView from './components/controls/TableView'
-import TextLabel from './components/controls/TextLabel'
 import BorderPane from './components/layout/BorderPane'
-import Card       from './components/layout/TitlePane'
-import Popup      from './components/layout/Popup'
-import Key from './components/controls/electro_scheme/Key'
-import Alarm from './components/controls/images/Alarm'
-import Info from './components/controls/images/Info'
-import Warning from './components/controls/images/Warning'
+import Popup from './components/layout/Popup'
+import TitlePane from './components/layout/TitlePane'
 import Button from './components/controls/input/Button'
 import ComboBox from './components/controls/input/ComboBox'
 import TextField from './components/controls/input/TextField'
@@ -22,21 +13,12 @@ import Slider from './components/controls/input/slider/Slider'
 import Toggle from './components/controls/input/toggle/Toggle'
 
 const components = [
-    ArrowView,
-CircleBar,
-HorizontalBar,
-LoadingCom,
+    Loading,
 NavigationMenu,
-PageLoading,
 TableView,
-TextLabel,
 BorderPane,
-Card,
 Popup,
-Key,
-Alarm,
-Info,
-Warning,
+TitlePane,
 Button,
 ComboBox,
 TextField,
@@ -56,21 +38,12 @@ export default {
 }
 
 export  {
-    ArrowView,
-CircleBar,
-HorizontalBar,
-LoadingCom,
+    Loading,
 NavigationMenu,
-PageLoading,
 TableView,
-TextLabel,
 BorderPane,
-Card,
 Popup,
-Key,
-Alarm,
-Info,
-Warning,
+TitlePane,
 Button,
 ComboBox,
 TextField,

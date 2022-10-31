@@ -3,9 +3,7 @@
          :style="styleVars">
         <div class="closer" @click="$emit('close')"></div>
         <div class="popup-body">
-            <slot name="popup-body-header"/>
-            <slot name="popup-body-content"/>
-            <slot name="popup-body-footer"/>
+            <slot/>
         </div>
     </div>
 </template>
