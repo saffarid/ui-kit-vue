@@ -2,7 +2,7 @@
     <div class="border-pane">
         <slot name="top">
         </slot>
-        <div class="center_line">
+        <div class="center-line">
             <slot name="left">
             </slot>
             <slot name="center">
@@ -21,14 +21,14 @@
    }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .border-pane {
         margin: 0;
         display: grid;
         height: 100%;
         grid-template-rows: minmax(min-content, max-content) minmax(min-content, auto) minmax(min-content, max-content);
 
-        .center_line {
+        .center-line {
             display: grid;
             grid-template-columns: minmax(min-content, max-content) minmax(min-content, auto) minmax(min-content, max-content);
         }

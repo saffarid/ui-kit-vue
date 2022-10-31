@@ -1,9 +1,7 @@
 <template>
-   <div
-           :disabled="disabled"
-           class="button" @click="click">
+   <button class="button" @click="$emit('click')">
       <slot>{{text}}</slot>
-   </div>
+   </button>
 </template>
 
 <script>
@@ -11,28 +9,12 @@
       name: 'Button',
       props: {
          text: String,
-         disabled:{
-            type: Boolean,
-            required: false,
-            default: false
-         }
       },
       emits: ['click'],
-      setup(props, context){
-         const click = () => {
-            if (!props.disabled) {
-               context.emit('click')
-            }
-         }
-
-         return {
-            click
-         }
-      }
    }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
    .button{
       cursor:pointer;
       display: grid;

@@ -1,5 +1,5 @@
 <template>
-    <div class="title_pane">
+    <div class="title-pane">
         <div class="title">{{ title }}</div>
         <div class="content">
             <slot/>
@@ -23,9 +23,9 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
-    .title_pane{
+    .title-pane{
 
         display: grid;
         grid-template-rows: min-content auto;

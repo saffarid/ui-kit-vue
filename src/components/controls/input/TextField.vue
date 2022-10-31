@@ -1,5 +1,5 @@
 <template>
-    <input
+    <input class="text-field"
             ref="input"
             :type="type"
             :value="inputValue"
@@ -7,7 +7,7 @@
             :min="min"
             :max="max"
             :maxlength="maxLength"
-            :class="{'error-blink': errorBlink, 'change-blink': changeBlink}"
+            :class="{'error-blink': errorBlink}"
             @input="onInput"
             @change="onChange"
             @blur="onBlur"/>
@@ -113,17 +113,6 @@
                 },
                 immediate: false,
                 deep: true,
-            },
-        },
-        computed: {
-            changeBlink: function () {
-                debug(['UText.compute.changeBlink', this.modelValue, this.prevValue])
-                if (this.prevValue === undefined) return false
-                if (typeof this.modelValue == 'string') {
-                    return this.modelValue.localeCompare(this.prevValue.toString()) != 0
-                } else {
-                    return this.prevValue != this.modelValue
-                }
             },
         },
         emits: ['update:modelValue'],
