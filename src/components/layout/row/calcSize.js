@@ -4,7 +4,6 @@ function checkDevice(s) {
 
 export default function calcSize() {
     if (checkDevice('Windows')) {
-
         return {
             '--minWidthCol': 200 + 'px',
             '--maxWidthCol1': 450 + 'px',

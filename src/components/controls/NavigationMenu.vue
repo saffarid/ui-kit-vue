@@ -1,33 +1,42 @@
 ﻿<template>
     <div class="navigation-menu">
         <template v-for="(btn,name) in buttons" :key="name">
-            <Button
-                    :class="{'active':btn.active}"
-                    @click="$emit('navigate', name)">
+            <ElmButton
+                    :class="{'active':btn.active, 'changed':btn.changed}"
+                    @click="$emit('navigate', name)"
+                    :options="{
+                       type: button_types.simpleButton
+                    }">
+
                 <component :is="btn.img"/>
                 <span>{{btn.title}}</span>
-            </Button>
+
+            </ElmButton>
         </template>
     </div>
 </template>
 
-<script>
-    import Button from "./input/Button";
-    import {
-        defineAsyncComponent
-    }             from 'vue'
+<script lang="ts">
+   import ElmButton from './input/button/Button.vue'
+   import { button_types } from './input/button/button_types'
+   import { defineComponent } from 'vue'
 
-    export default {
-        name: 'NavigationMenu',
-        components: {
-            Button,
-        },
-        emits: ['navigate'],
-        props: {
-            buttons: {
-                type: Array,
-                required: true,
-            },
-        },
-    }
+   export default defineComponent({
+      name: 'NavigationMenu',
+      components: {
+         ElmButton,
+      },
+      emits: ['navigate'],
+      props: {
+         buttons: {
+            type: Object,
+            required: true,
+         },
+      },
+      setup() {
+         return {
+            button_types,
+         }
+      },
+   })
 </script>

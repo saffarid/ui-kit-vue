@@ -1,17 +1,28 @@
 <template>
-   <div v-bind="sliderProps" ref="slider"></div>
+    <div v-bind="sliderProps" ref="slider"></div>
 </template>
 
-<script>
-   import { ref, toRefs, toRaw, computed, watch } from 'vue'
+<script lang="ts">
+   import {
+      defineComponent,
+      ref,
+      toRefs,
+      toRaw,
+      computed,
+      watch,
+      onMounted,
+      onUnmounted
+   }                 from 'vue'
    import nouislider from 'nouislider'
-   import isNullish from './utils/isNullish'
+   import isNullish  from './utils/isNullish'
    import useClasses from './composables/useClasses'
    import useTooltip from './composables/useTooltip'
    //import useSlider from './composables/useSlider'
    //import useValue from './composables/useValue'
 
-   function debug() {}
+   function debug() {
+   }
+
    //function debug(val) { console.debug(val) }
 
    function floatArraysEquals(array1, array2) {
@@ -20,12 +31,12 @@
 
       if (array1Sorted.length !== array2Sorted.length) return false
 
-      return array1Sorted.every(function (value, index) {
+      return array1Sorted.every(function(value, index) {
          return Number(value) === Number(array2Sorted[index])
       })
    }
 
-   export default {
+   export default defineComponent({
       name: 'Slider',
       emits: ['input', 'update:modelValue', 'update', 'change'],
       props: {
@@ -39,7 +50,7 @@
             default: false,
          },
          modelValue: {
-            validator: function (p) {
+            validator: function(p) {
                return typeof p === 'number' || p instanceof Array || p === null || p === undefined || p === false
             },
             required: true,
@@ -146,36 +157,30 @@
             default: null,
          },
       },
-      mounted() {
-         this.initSlider()
-      },
-      unmounted() {
-         this.destroySlider()
-      },
       setup(props, context) {
-         debug(['USlider.setup.props', props])
+         debug(['Slider.setup.props', props])
          const {
-            modelValue,
-            modelModifiers,
-            id,
-            disabled,
-            options,
-            orientation,
-            direction,
-            merge,
-            behaviour,
-            connect,
-            margin,
-            padding,
-            limit,
-            step,
-            range,
-            pips,
-            tooltips,
-            animate,
-            animationDuration,
-            snap,
-         } = toRefs(props)
+                  modelValue,
+                  modelModifiers,
+                  id,
+                  disabled,
+                  options,
+                  orientation,
+                  direction,
+                  merge,
+                  behaviour,
+                  connect,
+                  margin,
+                  padding,
+                  limit,
+                  step,
+                  range,
+                  pips,
+                  tooltips,
+                  animate,
+                  animationDuration,
+                  snap,
+               } = toRefs(props)
 
          // этих полей в options быть не должно
          delete options.value.id
@@ -238,7 +243,7 @@
                tooltips: tooltips && tooltips.value && tooltip.format.value ? tooltip.format.value : false,
             }
 
-            const f = function (field, refValue) {
+            const f = function(field, refValue) {
                if (refValue !== undefined && refValue.value !== undefined) opt[field] = refValue.value
             }
 
@@ -254,7 +259,7 @@
          const userOptions = computed(() => {
             // range, step, margin, padding, limit, pips, animate, animationDuration, snap
             const opt = {}
-            const f = function (field, refValue) {
+            const f = function(field, refValue) {
                if (refValue !== undefined && refValue.value !== undefined) opt[field] = refValue.value
             }
 
@@ -298,41 +303,47 @@
          }
 
          const update = (val, triggerChange = true) => {
-            debug(['USlider.value.set', val])
+            debug(['Slider.value.set', val])
             slider$.value.set(val, triggerChange)
          }
 
          // no export
          const emitUpdateValue = val => {
-            debug(['USlider.emit.input', val])
+            debug(['Slider.emit.input', val])
             context.emit('input', val)
             if (!modelModifiers.value.lazy) {
-               debug(['USlider.emit.update:modelValue', val])
+               debug(['Slider.emit.update:modelValue', val])
                context.emit('update:modelValue', val)
             }
          }
 
          const emitChangeValue = val => {
-            debug(['USlider.emit.update:modelValue', val])
+            debug(['Slider.emit.update:modelValue', val])
             context.emit('update:modelValue', val)
-            debug(['USlider.emit.change', val])
+            debug(['Slider.emit.change', val])
             context.emit('change', val)
          }
 
-         const isEquals = function (newVal, curVal) {
+         const isEquals = function(newVal, curVal) {
             if (isRange.value) return floatArraysEquals(newVal, curVal)
 
             if (Array.isArray(newVal)) newVal = newVal[0]
             return newVal == curVal
          }
 
+         let initOptionsStr = ''
+         let userOptionsStr = ''
          let ignoreUpdateOnce = false
          const initSlider = () => {
             let opts = {
                start: isNullish(modelValue.value) ? range.value.min : modelValue.value,
             }
+
+            initOptionsStr = toComparableStr(initOptions.value)
+            userOptionsStr = toComparableStr(userOptions.value)
+
             opts = Object.assign({}, defaultOptions, initOptions.value, userOptions.value, opts)
-            debug(['USlider.initSlider', opts])
+            debug(['Slider.initSlider', opts])
             slider$.value = nouislider.create(slider.value, opts)
 
             if (tooltips.value && isRange.value && merge.value >= 0) {
@@ -344,7 +355,7 @@
             //     return
 
             //   const sliderValue = getSliderValue()
-            //   debug(['USlider.on.set', val, sliderValue, modelValue.value])
+            //   debug(['Slider.on.set', val, sliderValue, modelValue.value])
             //   if( !isEquals(sliderValue, modelValue.value) )
             //     emitUpdateValue(sliderValue)
             // })
@@ -361,11 +372,11 @@
                }
 
                const sliderValue = getSliderValue()
-               debug(['USlider.on.update', val, sliderValue, modelValue.value])
+               debug(['Slider.on.update', val, sliderValue, modelValue.value])
 
                if (isEquals(sliderValue, modelValue.value)) {
                   //IDN: если новое значение не отличается от старого, то вызываем только событие update???
-                  debug(['USlider.emit.update', sliderValue])
+                  debug(['Slider.emit.update', sliderValue])
                   context.emit('update', sliderValue)
                   // Required because set event is not triggered even though it should be
                   return
@@ -379,7 +390,7 @@
                if (!inited.value) return
 
                const sliderValue = getSliderValue()
-               debug(['USlider.on.change', val, sliderValue, modelValue.value])
+               debug(['Slider.on.change', val, sliderValue, modelValue.value])
 
                if (!isEquals(sliderValue, modelValue.value)) emitChangeValue(sliderValue)
             })
@@ -402,6 +413,7 @@
          }
 
          const destroySlider = () => {
+            debug('Slider.destroySlider')
             slider$.value.off()
             slider$.value.destroy()
             slider$.value = null
@@ -409,64 +421,6 @@
 
          // ============== WATCHERS ==============
          const toComparableStr = obj => (JSON.stringify(obj) ?? '').replaceAll('"', '')
-         let initOptionsStr = ''
-         let userOptionsStr = ''
-
-         watch(
-            initOptions,
-            () => {
-               debug('USlider.watch.initOptions')
-               const str = toComparableStr(initOptions.value)
-               if (initOptionsStr != str) {
-                  initOptionsStr = str
-                  inited.value = false
-                  destroySlider()
-                  initSlider()
-               }
-            },
-            { immediate: false }
-         )
-
-         watch(
-            userOptions,
-            () => {
-               debug('USlider.watch.userOptions')
-               const str = toComparableStr(userOptions.value)
-               if (userOptionsStr != str) {
-                  userOptionsStr = str
-                  const options = Object.assign({}, initOptions.value, userOptions.value, { start: modelValue.value })
-                  debug(['USlider.updateOptions', options])
-                  ignoreUpdateOnce = true
-                  slider$.value.updateOptions(options)
-               }
-            },
-            { immediate: false }
-         )
-         /*
-         noUiSlider has an updateOptions method that can change the 
-         'margin', 'padding', 'limit', 'step', 'range', 'pips', 'tooltips', 'animate' and 'snap' options.
-         To update any other option, destroy the slider using slider.noUiSlider.destroy() and create a new one.
-         */
-
-         watch(
-            modelValue,
-            newValue => {
-               const sliderValue = getSliderValue()
-               debug(['slider.watch.modelValue', newValue, sliderValue, modelValue.value])
-
-               // if( isNullish(newValue.value) ) {
-               //   updateUiSlider()
-               //   //update(range.value.min, false)
-               //   return
-               // }
-
-               if (!isEquals(newValue, sliderValue)) {
-                  //updateUiSlider()
-                  update(newValue, false)
-               }
-            },
-            { immediate: false, deep: true }
-         )
 
          const sliderProps = computed(() => {
             let sliderProps = {
@@ -480,6 +434,69 @@
             return sliderProps
          })
 
+
+         watch(slider, () => {
+            watch(
+               initOptions,
+               () => {
+                  debug('Slider.watch.initOptions')
+                  const str = toComparableStr(initOptions.value)
+                  if (initOptionsStr != str) {
+                     initOptionsStr = str
+                     inited.value = false
+                     destroySlider()
+                     initSlider()
+                  }
+               },
+               { immediate: false },
+            )
+
+            watch(
+               userOptions,
+               () => {
+                  debug('Slider.watch.userOptions')
+                  const str = toComparableStr(userOptions.value)
+                  if (userOptionsStr != str) {
+                     userOptionsStr = str
+                     const options = Object.assign({}, initOptions.value, userOptions.value, { start: modelValue.value })
+                     debug(['Slider.updateOptions', options])
+                     ignoreUpdateOnce = true
+                     slider$.value.updateOptions(options)
+                  }
+               },
+               { immediate: false },
+            )
+            /*
+            noUiSlider has an updateOptions method that can change the
+            'margin', 'padding', 'limit', 'step', 'range', 'pips', 'tooltips', 'animate' and 'snap' options.
+            To update any other option, destroy the slider using slider.noUiSlider.destroy() and create a new one.
+            */
+
+            watch(
+               modelValue,
+               newValue => {
+                  const sliderValue = getSliderValue()
+                  debug(['Slider.watch.modelValue', newValue, sliderValue, modelValue.value])
+
+                  // if( isNullish(newValue.value) ) {
+                  //   updateUiSlider()
+                  //   //update(range.value.min, false)
+                  //   return
+                  // }
+
+                  if (!isEquals(newValue, sliderValue)) {
+                     //updateUiSlider()
+                     update(newValue, false)
+                  }
+               },
+               { immediate: false, deep: true },
+            )
+         })
+
+         onMounted(initSlider)
+
+         onUnmounted(destroySlider)
+
          return {
             ...classes,
             ...tooltip,
@@ -491,9 +508,5 @@
             destroySlider,
          }
       },
-   }
+   })
 </script>
-
-<style>
-   @import "default.scss";
-</style>

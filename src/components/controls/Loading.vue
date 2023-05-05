@@ -6,11 +6,11 @@
   </div>
 </template>
 
-<script>
-
-  export default {
-    name: 'Loading',
-  }
+<script lang="ts">
+  import {defineComponent} from 'vue'
+  export default defineComponent({
+    name: 'ElmLoading',
+  })
 </script>
 
 <style lang="scss">
@@ -19,12 +19,13 @@
     display: grid;
     min-height: 100%;
     min-width: 100%;
-    align-content: start;
+    align-content: center;
     align-items: start;
     align-self: start;
     justify-content: center;
     justify-items: center;
     justify-self: center;
+
     .busy-dialog {
       width: 120px;
       /*height: 40px;*/

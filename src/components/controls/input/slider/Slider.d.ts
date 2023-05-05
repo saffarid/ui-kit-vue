@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 declare class Slider extends Vue {
    modelValue?: any
-   id?: string
+   id: string
    disabled?: boolean
    range?: object
    step?: number

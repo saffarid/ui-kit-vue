@@ -26,7 +26,7 @@
      * что он всегда располагается по центру окна браузера.
      * */
     export default {
-        name: 'Row',
+        name: 'ElmRow',
         setup() {
             const row = ref(null)
             const optional = ref(null)
@@ -56,6 +56,7 @@
 
             const containerStyleCalc = () => {
                 const rubicon = (widths.maxWidthCol1 + widths.maxWidthCol2 + 5) * 1.0
+                if(row.value == null) return
                 setPastWidths()
                 const optionalW = pastWidths.row - pastWidths.first - pastWidths.second
                 if(pastWidths.row === 0) return

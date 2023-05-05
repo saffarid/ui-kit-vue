@@ -1,49 +1,65 @@
 <template>
-   <div class="toggle-input" :style="cssVars" :class="{'change-blink': changeBlink}">
-      <input
-         type="checkbox"
-         :name="name"
-         :id="id"
-         :disabled="disabled"
-         :trueValue="trueValue"
-         :falseValue="falseValue"
-         v-model="value"
-         v-bind="$attrs" />
-      <label :for="id">
-         <slot name="on">
-            <span class="toggle-on" v-html="onLabel"></span>
-         </slot>
-         <slot name="off">
-            <span class="toggle-off" v-html="offLabel"></span>
-         </slot>
-      </label>
-   </div>
+    <div class="toggle-input" :style="cssVars" :class="{'change-blink': changeBlink}">
+        <input
+                type="checkbox"
+                :name="name"
+                :id="id"
+                :disabled="disabled"
+                :trueValue="trueValue"
+                :falseValue="falseValue"
+                v-model="value"
+                v-bind="$attrs"/>
+        <label :for="id">
+            <slot name="on">
+                <span class="toggle-on" v-html="onLabel"></span>
+            </slot>
+            <slot name="off">
+                <span class="toggle-off" v-html="offLabel"></span>
+            </slot>
+        </label>
+    </div>
 </template>
 
-<script>
-   import { unref } from 'vue'
+<script lang="ts">
+   import {
+      unref,
+      defineComponent,
+   } from 'vue'
    import useStyle from './composables/useStyle'
+   import { computed } from '@vue/runtime-dom'
 
-   function debug() {}
-   //function debug(val) { console.debug(val) }
-
-   export default {
+   export default defineComponent({
       name: 'Toggle',
       inheritAttrs: false,
       emits: ['update:modelValue'],
       props: {
+         /**
+          * Предыдущее значение
+          * @type String, Number, Boolean
+          * @requires false
+          * */
          prevValue: {
             type: [String, Number, Boolean],
             required: false,
          },
+         /**
+          * Текущее значение
+          * @type String, Number, Boolean
+          * @requires false
+          * */
          modelValue: {
             type: [String, Number, Boolean],
             required: true,
          },
+         /**
+          * Идентификатор
+          * @requires true
+          * */
          id: {
             type: [String, Number],
             required: true,
          },
+
          name: {
             type: [String, Number],
             required: false,
@@ -109,28 +125,21 @@
                this.$emit('update:modelValue', v ? unref(this.trueValue) : unref(this.falseValue))
             },
          },
-         changeBlink: function () {
-            debug(['UToggle.compute.changeBlink', this.modelValue, this.prevValue])
-            return this.prevValue !== undefined && this.prevValue != this.modelValue
-         },
       },
       setup(props) {
          const style = useStyle(props)
 
+         const changeBlink = computed(() => {
+            if (props.prevValue === undefined) {
+               return false
+            }
+            return props.prevValue != props.modelValue
+         })
+
          return {
+            changeBlink,
             ...style,
          }
       },
-   }
+   })
 </script>
-
-<style lang="scss" scoped>
-   @import "default.scss";
-   .change-blink {
-      /*border-right: 5px solid var(--border_color_hover);*/
-      /*border-radius: 12px;*/
-      /*padding-right: 2px;*/
-      /*justify-self: start;*/
-      /*--toggle-on-handle-color: red;*/
-   }
-</style>
