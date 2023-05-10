@@ -23,7 +23,7 @@
 
 <script>
     export default {
-        name: "ElmTablePane",
+        name: "TablePane",
         props: {
             headers: {
                 type: Array,

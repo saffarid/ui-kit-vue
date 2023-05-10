@@ -10,14 +10,13 @@
 
 </template>
 
-<script lang="ts">
+<script>
    import {
       computed,
-      defineComponent,
    } from 'vue'
    import MixinValue from '../mixins/MixinValue'
 
-   export default defineComponent({
+   export default {
       name: 'ComboBox',
       mixins: [MixinValue],
       props: {
@@ -44,5 +43,5 @@
          })
          return { changeBlink }
       },
-   })
+   }
 </script>

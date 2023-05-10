@@ -26,7 +26,7 @@
 
 <script>
    export default {
-      name: 'ElmBorderPane',
+      name: 'BorderPane',
    }
 </script>
 

@@ -6,14 +6,13 @@
     </component>
 </template>
 
-<script lang="ts">
+<script>
    import {
-      defineAsyncComponent,
-      defineComponent,
+      defineAsyncComponent
    } from 'vue'
    import { button_types } from './button_types'
 
-   export default defineComponent({
+   export default {
       name: 'Button',
       props: {
          options: {
@@ -27,5 +26,5 @@
             comp,
          }
       },
-   })
+   }
 </script>

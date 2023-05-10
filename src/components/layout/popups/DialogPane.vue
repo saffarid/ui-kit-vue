@@ -1,5 +1,5 @@
 <template>
-    <ElmPopup class="dialog-pane" @dismiss="$emit('dismiss')">
+    <Popup class="dialog-pane" @dismiss="$emit('dismiss')">
         <template v-slot:default>
             <div class="dialog-pane-body">
                 <div class="dialog-pane-title">{{title}}</div>
@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="button-bar">
-                    <ElmButton class="positive-button"
+                    <Button class="positive-button"
                             v-if="positiveButton != undefined || positiveButton != null"
                             @click="positiveButton.action"
                             :options="{
@@ -18,7 +18,7 @@
                               isBusy: positiveButton.isBusy
                             }"/>
 
-                    <ElmButton class="neutral-button"
+                    <Button class="neutral-button"
                             v-if="neutralButton != undefined || neutralButton != null"
                             @click="neutralButton.action"
                             :options="{
@@ -27,7 +27,7 @@
                               isBusy: neutralButton.isBusy
                             }"/>
 
-                    <ElmButton class="negative-button"
+                    <Button class="negative-button"
                             v-if="negativeButton != undefined || negativeButton != null"
                             @click="negativeButton.action"
                             :options="{
@@ -38,21 +38,19 @@
                 </div>
             </div>
         </template>
-    </ElmPopup>
+    </Popup>
 </template>
 
 <script>
-   import {
-      ElmButton,
-      button_types,
-   }               from 'elemy-controls'
-   import ElmPopup from './Popup.vue'
+   import Button         from '../../controls/input/button/Button'
+   import {button_types} from '../../controls/input/button/button_types'
+   import Popup          from './Popup.vue'
 
    export default {
       name: 'DialogPane',
       components: {
-         ElmPopup,
-         ElmButton,
+         Popup,
+         Button,
       },
       emits: ['dismiss'],
       props: {

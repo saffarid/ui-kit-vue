@@ -5,15 +5,12 @@
     </button>
 </template>
 
-<script lang="ts">
-   import Loading from './../../../Loading'
-   import SimpleButton from './SimpleButton'
-   import { defineComponent } from 'vue'
+<script>
+   import Loading from '../../../Loading'
 
-   export default defineComponent({
+   export default {
       name: 'LoadingButton',
       components: {
-         SimpleButton,
          Loading,
       },
       props: {
@@ -22,5 +19,5 @@
             required: true,
          },
       },
-   })
+   }
 </script>

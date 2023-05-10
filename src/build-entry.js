@@ -13,9 +13,14 @@ const OUTPUT_PATH_DECLARATION = path.join(__dirname, '../index.d.ts')
 
 let IMPORT_TEMPLATE = `import {{name}} from '{{path}}'`
 let OUTPUT_TEMPLATE = `
+// Auto generated file
+import {button_types} from './components/controls/input/button/button_types'
+import utils          from './js/utils'
 {{importList}}
 
 export  {
+\tbutton_types,
+\tutils,
 \t{{exportComponentsList}}
 }
 `

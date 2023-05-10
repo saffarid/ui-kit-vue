@@ -9,11 +9,10 @@
 <script>
    import {
       computed,
-      defineComponent,
    } from 'vue'
 
-   export default defineComponent({
-      name: 'ElmTextLabel',
+   export default {
+      name: 'TextLabel',
       props: {
          label: {
             type: String,
@@ -41,7 +40,7 @@
             textAlignClass,
          }
       },
-   })
+   }
 </script>
 
 <style lang="scss">

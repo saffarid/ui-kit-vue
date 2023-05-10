@@ -1,10 +1,9 @@
-<script lang="ts">
-    import {defineComponent} from "vue"
+<script>
     /**
      * Текущее значение параметра
      * */
-    export default defineComponent({
-        name: "ElmMixinValue",
+    export default {
+        name: "MixinValue",
         props: {
             /**
              * Текущее значение некоторой величины.
@@ -24,5 +23,5 @@
                 }
             }
         }
-    })
+    }
 </script>

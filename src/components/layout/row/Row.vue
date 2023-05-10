@@ -26,7 +26,7 @@
      * что он всегда располагается по центру окна браузера.
      * */
     export default {
-        name: 'ElmRow',
+        name: 'Row',
         setup() {
             const row = ref(null)
             const optional = ref(null)

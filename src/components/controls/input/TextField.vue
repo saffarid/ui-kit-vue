@@ -14,9 +14,8 @@
             @blur="onBlur"/>
 </template>
 
-<script lang="ts">
+<script>
    import {
-      defineComponent,
       computed,
       ref,
       watch,
@@ -37,7 +36,7 @@
    /**
     * Поле текстового ввода
     * */
-   export default defineComponent({
+   export default {
       name: 'TextField',
       mixins: [
          MixinValue,
@@ -69,7 +68,7 @@
             type: RegExp,
             required: false,
          },
-         modelModifiers: {
+         mododifiers: {
             default: () => ({}),
          },
          format: {
@@ -128,7 +127,7 @@
          const errorBlink = ref(false)
 
          let max_length
-         if (props.modelModifiers.ip) {
+         if (props.mododifiers.ip) {
             max_length = 16
          }
          else {
@@ -177,7 +176,7 @@
             let error = false
             let applyToInput = false
             let selectIndex = tField.value.selectionStart
-            if (input.type == 'number' || props.modelModifiers.number) {
+            if (input.type == 'number' || props.mododifiers.number) {
                value = parseFloat(value)
                error = isNaN(value)
                if (error) {
@@ -203,12 +202,12 @@
                   applyToInput = true
                }
 
-               if (props.modelModifiers.upperCase) {
+               if (props.mododifiers.upperCase) {
                   value = value.toUpperCase()
                   newVal = value
                   applyToInput = true
                }
-               if (props.modelModifiers.ip) {
+               if (props.mododifiers.ip) {
                   const patternIP =
                            /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g
                   const segIpPattern = /(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/
@@ -311,7 +310,7 @@
 
          const onInput = (event) => {
             debug(['TextField.onInput', event])
-            setValue(event.target.value, false, !props.modelModifiers.lazy)
+            setValue(event.target.value, false, !props.mododifiers.lazy)
          }
 
          const onChange = (event) => {
@@ -377,5 +376,5 @@
             onBlur,
          }
       },
-   })
+   }
 </script>
