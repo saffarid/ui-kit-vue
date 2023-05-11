@@ -19,7 +19,13 @@ const objectCopy = (copied, target) => {
    }
 }
 
+const clearObject = obj => {
+   for (const key in Object.keys(obj))
+      delete obj[key]
+}
+
 module.exports = {
    isObject,
-   objectCopy
+   objectCopy,
+   clearObject
 }
