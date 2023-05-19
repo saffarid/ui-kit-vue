@@ -1,5 +1,5 @@
 <template>
-    <component :is="comp" :options="options">
+    <component :is="comp" :options="options" @click="options.action">
         <template #default>
             <slot/>
         </template>

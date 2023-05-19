@@ -11,30 +11,15 @@
                 <div class="button-bar">
                     <Button class="positive-button"
                             v-if="positiveButton != undefined || positiveButton != null"
-                            @click="positiveButton.action"
-                            :options="{
-                              type: button_types.loadingButton,
-                              text: positiveButton.text,
-                              isBusy: positiveButton.isBusy
-                            }"/>
+                            :options="positiveButton"/>
 
                     <Button class="neutral-button"
                             v-if="neutralButton != undefined || neutralButton != null"
-                            @click="neutralButton.action"
-                            :options="{
-                              type: button_types.loadingButton,
-                              text: neutralButton.text,
-                              isBusy: neutralButton.isBusy
-                            }"/>
+                            :options="neutralButton"/>
 
                     <Button class="negative-button"
                             v-if="negativeButton != undefined || negativeButton != null"
-                            @click="negativeButton.action"
-                            :options="{
-                              type: button_types.loadingButton,
-                              text: negativeButton.text,
-                              isBusy: negativeButton.isBusy
-                            }"/>
+                            :options="negativeButton"/>
                 </div>
             </div>
         </template>
@@ -91,8 +76,7 @@
                 grid-template-rows: repeat(auto-fit, min-content);
 
                 .button-bar {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(150px, 200px));
+                    display: flex;
                     column-gap: 5px;
                     justify-content: end;
 
